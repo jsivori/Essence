@@ -28,7 +28,7 @@ function valida(){
 	valores[1]= usuario;
 			
 	result = cargarPaginaDivSinc("../extras/sesion.php", parametros, valores);
-alert(result);
+
 	if(result=="deny"){
 		$("#listado").append($("<li></li>").text("No pudo iniciarse la sesion"));    
 		hayError = true;

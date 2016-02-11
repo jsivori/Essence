@@ -173,7 +173,7 @@ class Persona{
 					$result = false;	
 		}
 		catch(PDOException $e){
-			echo "ERROR obtener Provincias: " . $e->getMessage();
+			//echo "ERROR obtener Provincias: " . $e->getMessage();
 			$result = false;
 		}		
 		
