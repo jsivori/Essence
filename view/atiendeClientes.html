@@ -179,7 +179,7 @@ function validaForm(){
 						<td><?php echo (date( "d/m/Y H:m" ,strtotime($atencion['fecha_hora']))); ?></td>
 						<td><?php echo $atencion['observaciones']; ?></td>
 						<td>
-							<span class="" aria-hidden="true" onclick="eliminar(<?php echo $atencion['id_operacion']; ?>)" >Borrar</span>
+							<span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="eliminar(<?php echo $atencion['id_operacion']; ?>)" >&nbsp;</span>
 						</td>
 					</tr>
 				<?php
