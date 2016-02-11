@@ -30,7 +30,7 @@ function conectar(){
 	try{
 		//$conn = new PDO(sprintf('mysql:host=%s;dbname=%s', $dbhost, $dbname), $dbuser, $dbpass);
 		
-		$conn = new PDO('mysql:/'.getenv($OPENSHIFT_MYSQL_DB_HOST).':'.getenv($OPENSHIFT_MYSQL_DB_PORT).'/', $dbuser, $dbpass);
+		$conn = new PDO('mysql:/'.getenv('OPENSHIFT_MYSQL_DB_HOST').':'.getenv('OPENSHIFT_MYSQL_DB_PORT').'/', $dbuser, $dbpass);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	}catch(PDOException $e){
