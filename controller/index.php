@@ -35,6 +35,10 @@ switch ($_POST['opt']){
 		$pag = '../view/index.html';
 		break;
 		
+	case 4:	
+		$pag = '../view/index.html';	
+		break;
+		
 	default:
 		if(isset($_SESSION['log']) or (session_id() != ''))
 			session_destroy();

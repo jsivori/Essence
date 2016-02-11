@@ -149,15 +149,8 @@ function validaForm(){
 </head>
 
 <form action="clientes.php" method="post" class="" id="atencion" name="atencion">
-	<h2> Atenciones para <?php echo  $busqueda["nombre"].", ".$busqueda["apellido"]; ?></h2>
-	<h3> </h3>
+	<h3> Atenciones para <?php echo  $busqueda["nombre"].", ".$busqueda["apellido"]; ?></h3>
 		
-	<div id="botonera" class="botonera">
-		<button type="button" id="bEnviar" class="btn btn-success" onclick='atender(<?php echo  $busqueda["id_persona"] ?>)'>Nueva Atencion</button>
-		<button type="button" id="bVerH" class="btn btn-primary" onclick='verOcultar()'>Ocultar Atenciones</button>
-		<button type="button" class="btn btn-default" onclick="document.getElementById('volver').submit()">Volver</button>
-	</div>
-	
 	<div class="" id="atenciones"> 
 		<table id="tabla2" class="display" cellspacing="0" width="100%">
 			<thead>
@@ -197,7 +190,13 @@ function validaForm(){
 		</table>
 	</div>
 	
-	<div id="nuevaAtencion"> 
+	<div id="botonera" style="padding:10px">
+		<button type="button" id="bEnviar" class="btn btn-primary pull-right" onclick='atender(<?php echo  $busqueda["id_persona"] ?>)'>Nueva Atencion</button>
+		<button type="button" id="bVerH" class="btn btn-primary pull-right" style="margin-right:50px" onclick='verOcultar()'>Ocultar Atenciones</button>
+		<button type="button" class="btn btn-primary pull-left" onclick="document.getElementById('volver').submit()">Volver</button>
+	</div>
+	
+	<div id="nuevaAtencion" class="col-md-12" style="margin:10px"> 
 	</div>
 	
 	<input type="hidden" name="opt" id="opt" value="4" />	

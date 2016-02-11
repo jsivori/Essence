@@ -122,58 +122,67 @@ $(document).ready(function(){
 </script>
 
 <form action="clientes.php" method="post" class="" id="frmCliente" name="frmCliente">
-	<h2> Nuevo Cliente</h2>
-	<h4> Ingrese los datos de la persona a registrar</h4>
+	<div class="">	
 		
-	<div id="errores" class="errores">
-		<ul id="listado">
-		</ul>
-	</div>		
-	<div class="form-group">
-		<label for="nombre">Nombre</label>
-		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce un nombre" required>
-	</div>
-	
-	<div class="form-group">
-		<label for="apellido">Apellido</label>
-		<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Introduce un apellido" required>
-	</div>
-	
-	<div class="form-group">
-		<label for="fecha">Fecha de Nacimiento</label>
-		<input type="date" class="form-control" name="fecha" id="fecha" placeholder="Introduce un nombre" required>
-	</div>
-	
-	<div class="form-group">
-		<label for="tel">Tel&eacutefono</label>
-		<input type="number" class="form-control" id="tel" name="tel" placeholder="Introduce un telefono" required>
-	</div>
-	
-	<div class="form-group" id="sexoRadio">
-		<label for="sexo">Sexo</label>
-		<div class="radio">
-			<label>
-				<input type="radio" name="sexo" id="sexo" value="Masculino" checked >Masculino
-			</label>		
+		<h3> Nuevo Cliente</h3>
+		<h2> Ingrese los datos de la persona a registrar</h2>
+			
+		<div id="errores" class="errores">
+			<ul id="listado">
+			</ul>
 		</div>
-		<div class="radio">
-			<label>
-				<input type="radio" name="sexo" id="sexo" value="Femenino">Femenino
-			</label>		
-		</div>
-	</div>
+		
+	</div>	
 	
-	<div class="form-group">
-		<label for="email">E-Mail</label>
-		<input type="email" class="form-control" id="email" name="email" onKeyUp="verificarTipeoMail()" placeholder="Introduce tu E-Mail" required>
+	<div class="col-md-6">	
+		<div class="form-group">
+			<label for="nombre">Nombre</label>
+			<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce un nombre" required>
+		</div>
+
+		<div class="form-group">
+			<label for="apellido">Apellido</label>
+			<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Introduce un apellido" required>
+		</div>
+
+		<div class="form-group">
+			<label for="fecha">Fecha de Nacimiento</label>
+			<input type="date" class="form-control" name="fecha" id="fecha" placeholder="Introduce un nombre" required>
+		</div>
+	</div>	
+	
+	<div class="col-md-6">
+		<div class="form-group">
+			<label for="tel">Tel&eacutefono</label>
+			<input type="number" class="form-control" id="tel" name="tel" placeholder="Introduce un telefono" required>
+		</div>
+	
+		<div class="form-group" id="sexoRadio">
+			<label for="sexo">Sexo</label>
+			<div class="radio">
+				<label>
+					<input type="radio" name="sexo" id="sexo" value="Masculino" checked >Masculino
+				</label>		
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="sexo" id="sexo" value="Femenino">Femenino
+				</label>		
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="email">E-Mail</label>
+			<input type="email" class="form-control" id="email" name="email" onKeyUp="verificarTipeoMail()" placeholder="Introduce tu E-Mail" required>
+		</div>
 	</div>
 	
 	<input type="hidden" name="opt" id="opt" value="1">	
 
-	<div id="botonera" class="botonera">
-		<button type="submit" id="bEnviar" class="btn btn-success">Siguiente</button>
-		<button type="button" onclick="document.getElementById('volver').submit()" class="btn btn-primary">Cancelar</button>
-	</div>
+	
+	<button type="submit" id="bEnviar" class="btn btn-primary btn-lg pull-right">Siguiente</button>
+	<button type="button" onclick="document.getElementById('volver').submit()" class="btn btn-primary btn-lg pull-left">Cancelar</button>
+
 </form>
 
 <form action="clientes.php" method="post" class="" id="volver" name="volver">

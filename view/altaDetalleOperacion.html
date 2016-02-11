@@ -1,11 +1,12 @@
-<form method="post" action="acciones.php" class="frmDiv" id="frmAltaDtalle">
-	<h2> Nuevo detalle de operacion</h2>
-	<h4> Ingrese los datos y guarde</h4>
+<form method="post" action="acciones.php" id="frmAltaDtalle">
+	<h3> Nuevo detalle de operacion</h3>
+	<h2> Ingrese los datos y guarde</h2>
 		
 	<div id="errores" class="errores">
 		<ul id="listado">
 		</ul>
-	</div>		
+	</div>	
+		
 	<div class="form-group">
 		<label for="descripcion">Descripci&oacuten</label>
 		<input type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Introduce una descripcion" required>
@@ -13,8 +14,7 @@
 	
 	<input type="hidden" name="opt" id="opt" value="1">	
 
-	<div id="botonera">
-		<button type="button" id="bEnviar2" class="btn btn-default" onclick="validaForm();">Guardar</button>
-		<button type="button" id="cancelar" class="btn btn-default" onclick="$('#frmAlta').empty();">Cancelar</button>
-	</div>	
+	<button type="button" id="bEnviar2" class="btn btn-primary pull-right" onclick="validaForm();">Guardar</button>
+	<button type="button" id="cancelar" class="btn btn-primary pull-left" onclick="$('#frmAlta').empty();">Cancelar</button>
+
 </form>

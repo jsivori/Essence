@@ -138,9 +138,9 @@ $(document).ready(function(){
 		?>
 			<tr id="<?php echo $accion['id_detalle_operacion']; ?>">
 				<td><?php echo strtoupper($accion['descripcion']); ?></td>
-				<td>
+				<td style="text-align:center">
 					<form method="post" action="acciones.php" id="frmBorraDetalle">
-						<span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="eliminar(<?php echo $accion['id_detalle_operacion']; ?>)">Borrar </span>
+						<span class="glyphicon glyphicon-trash" style="cursor:pointer" aria-hidden="true" onclick="eliminar(<?php echo $accion['id_detalle_operacion']; ?>)">&nbsp; </span>
 						<input type="hidden" name="opt" id="opt" value="1">	
 					</form>
 				</td>
@@ -152,9 +152,11 @@ $(document).ready(function(){
 </table>
 
 <div id="botonera" class="botonera">
-	<button type="button" id="bEnviar" class="btn btn-success">Nuevo</button>
+	<button type="button" id="bEnviar" class="btn btn-primary btn-lg pull-right">Nuevo</button>
 </div>
 
-<div id="frmAlta">
+<div id="frmAlta" class="col-md-12" style="margin:10px">
+
+</div>
 
 </div>

@@ -118,25 +118,25 @@ $(document).ready(function(){
 				<td><?php echo (date( "d/m/Y" ,strtotime($cliente['fecha_nacimiento']))); ?></td>
 				<td><?php echo $cliente['sexo']; ?></td>
 				<td><?php echo $cliente['email']; ?></td>
-				<td>
+				<td style="text-align:center">
 					<form method="post" action="clientes.php" id="frmBorraDetalle">
-						<span class="" aria-hidden="true" onclick="eliminar(<?php echo $cliente['id_persona']; ?>)" >Borrar</span>
+						<span class="glyphicon glyphicon-trash" style="cursor:pointer" aria-hidden="true" onclick="eliminar(<?php echo $cliente['id_persona']; ?>)" >&nbsp;</span>
 						<input type="hidden" name="opt" id="opt" value="1" />	
 					</form>
 				</td>
-				<td>
+				<td style="text-align:center">
 					<form method="post" action="clientes.php" id="frmEdita">
-						<span class="" aria-hidden="true" onclick="editar(<?php echo $cliente['id_persona']; ?>)" >Editar</span>
+						<span alt="Editar" style="cursor:pointer" class="glyphicon glyphicon-pencil" aria-hidden="true" onclick="editar(<?php echo $cliente['id_persona']; ?>)" >&nbsp;</span>
 						<input type="hidden" name="opt" id="opt" value="3">	
 						
 					</form>
 				</td>
-				<td>
+				<td style="text-align:center">
 					<form method="post" action="clientes.php" id="frmAtencion">
-						<!--<span class="" aria-hidden="true" onclick="atender(<?php echo $cliente['id_persona']; ?>)" >Atender</span>-->
+						<span class="glyphicon glyphicon-usd" style="cursor:pointer" aria-hidden="true" onclick="document.getElementById('frmAtencion').submit()" >&nbsp;</span>
 						<input type="hidden" name="opt" id="opt" value="4" />	
 						<input type="hidden" name="id_persona" id="id_persona" value="<?php echo $cliente['id_persona']; ?>" />	
-						<button type="submit" id="bAtender" class="btn btn-success">Atender</button>
+						<!--<button type="submit" id="bAtender" class="btn btn-success">Atender</button>-->
 					</form>
 				</td>
 			</tr>
@@ -146,9 +146,9 @@ $(document).ready(function(){
     </tbody>
 </table>
 
-<div id="botonera" class="botonera">
-	<form method="post" action="clientes.php" id="frmBorraDetalle">
-		<button type="submit" id="bEnviar" class="btn btn-success">Nuevo Cliente</button>
-		<input type="hidden" name="opt" id="opt" value="2" />	
-	</form>
+<form method="post" action="clientes.php" id="frmBorraDetalle">
+	<button type="submit" id="bEnviar" class="btn btn-primary btn-lg pull-right">Nuevo Cliente</button>
+	<input type="hidden" name="opt" id="opt" value="2" />	
+</form>
+
 </div>
