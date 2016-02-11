@@ -178,7 +178,7 @@ function validaForm(){
 						<td><?php echo strtoupper($atencion['descripcion']); ?></td>
 						<td><?php echo (date( "d/m/Y H:m" ,strtotime($atencion['fecha_hora']))); ?></td>
 						<td><?php echo $atencion['observaciones']; ?></td>
-						<td>
+						<td style="text-align:center">
 							<span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="eliminar(<?php echo $atencion['id_operacion']; ?>)" >&nbsp;</span>
 						</td>
 					</tr>
