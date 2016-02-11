@@ -1,0 +1,160 @@
+<script>
+$(document).ready(function(){
+	$('#tabla').DataTable();
+	
+	$("#bEnviar").click(function(){
+		parametros= new Array();
+		valores= new Array();
+		parametros[0] = "opt";
+		valores[0] = 'alta';
+		cargarPaginaDiv("../extras/acciones.php", parametros, valores, "frmAlta");
+	});
+});
+
+	function validaForm(){
+		$("#errores").stop();
+		$("input").css("border-color","#ccc");
+		$("#listado").empty();
+		
+		descripcion = $("#descripcion").val();
+		
+		hayError = false;
+
+		if(descripcion == ""){
+			$("#listado").append($("<li></li>").text("La descripcion es requerida"));  
+			$("#descripcion").css("border-color", "#C32E2E");			
+			hayError = true;
+		}
+						
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+		
+		parametros= new Array();
+		valores= new Array();
+		parametros[0]= 'opt';
+		parametros[1]= 'descripcion';
+			
+		valores[0]= 1;
+		valores[1]= descripcion;
+				
+		result = cargarPaginaDivSinc("../extras/operaciones.php", parametros, valores);
+
+		if(result=="errorAlta"){
+			$("#listado").append($("<li></li>").text("No pudo guardarse la descripcion ingresada"));    
+			hayError = true;
+		}
+		
+		if(result=="duplicado"){
+			$("#listado").append($("<li></li>").text("Ya existe el registro que intenta ingresar"));    
+			hayError = true;
+		}
+		
+		if(result == "finCorrecto"){
+			document.getElementById('frmAltaDtalle').submit();
+		}
+		else{
+			//$("#listado").append($("<li></li>").text("Error de base de datos"));    
+			hayError = true;
+		}
+		
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+	};
+	
+	function eliminar(idDetalle){
+		$("#errores").stop();
+		$("input").css("border-color","#ccc");
+		$("#listado").empty();
+			
+		hayError = false;
+
+		if(isNaN(idDetalle)){
+			$("#listado").append($("<li></li>").text("Error al eliminar el registro"));  		
+			hayError = true;
+		}
+						
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+		
+		parametros= new Array();
+		valores= new Array();
+		parametros[0]= 'opt';
+		parametros[1]= 'id';
+			
+		valores[0]= 2;
+		valores[1]= idDetalle;
+				
+		result = cargarPaginaDivSinc("../extras/operaciones.php", parametros, valores);
+
+		if(result=="errorBorrar"){
+			$("#listado").append($("<li></li>").text("No pudo eliminarse el registro"));    
+			hayError = true;
+		}
+				
+		if(result == "finCorrecto"){
+			document.getElementById('frmBorraDetalle').submit();
+		}
+		else{
+			//$("#listado").append($("<li></li>").text("Error de base de datos"));    
+			hayError = true;
+		}
+		
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+	};
+
+</script>
+
+<head>
+	<script type="text/javascript" src="../extras/dataTable/media/js/jquery.dataTables.js"></script>
+	<link href="../extras/dataTable/media/css/jquery.dataTables.css" rel="stylesheet">
+</head>
+
+<h2>Operaciones</h2>
+
+<table id="tabla" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Descripci&oacuten</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+		<?php
+			for($i=0; $i<sizeof($acciones); $i++){
+				$accion = $acciones[$i];
+		?>
+			<tr id="<?php echo $accion['id_detalle_operacion']; ?>">
+				<td><?php echo strtoupper($accion['descripcion']); ?></td>
+				<td>
+					<form method="post" action="acciones.php" id="frmBorraDetalle">
+						<span class="glyphicon glyphicon-trash" aria-hidden="true" onclick="eliminar(<?php echo $accion['id_detalle_operacion']; ?>)">Borrar </span>
+						<input type="hidden" name="opt" id="opt" value="1">	
+					</form>
+				</td>
+			</tr>
+		<?php
+			}
+		?>
+    </tbody>
+</table>
+
+<div id="botonera" class="botonera">
+	<button type="button" id="bEnviar" class="btn btn-success">Nuevo</button>
+</div>
+
+<div id="frmAlta">
+
+</div>

@@ -1,0 +1,154 @@
+<script>
+$(document).ready(function(){
+	$('#tabla').DataTable();
+});
+
+	function eliminar(idPersona){
+		$("#errores").stop();
+		$("input").css("border-color","#ccc");
+		$("#listado").empty();
+			
+		hayError = false;
+
+		if(isNaN(idPersona)){
+			$("#listado").append($("<li></li>").text("Error al eliminar el registro"));  
+			hayError = true;
+		}
+						
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+		
+		parametros= new Array();
+		valores= new Array();
+		parametros[0]= 'opt';
+		parametros[1]= 'id';
+			
+		valores[0]= 2;
+		valores[1]= idPersona;
+				
+		result = cargarPaginaDivSinc("../extras/clientes.php", parametros, valores);
+
+		if(result=="errorBorrar"){
+			$("#listado").append($("<li></li>").text("No pudo eliminarse el registro"));    
+			hayError = true;
+		}
+				
+		if(result == "finCorrecto"){
+			document.getElementById('frmBorraDetalle').submit();
+		}
+		else{
+			//$("#listado").append($("<li></li>").text("Error de base de datos"));    
+			hayError = true;
+		}
+		
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+	};
+	
+	function editar(idpersona){
+		parametros= new Array();
+		valores= new Array();
+		parametros[0] = "idpersona";
+		valores[0] = idpersona;
+		parametros[1] = "opt";
+		valores[1] = 3;
+		parametros[2] = "nolayout";
+		valores[2] = 1;
+
+		cargarPaginaDiv("../controller/clientes.php", parametros, valores, "contenedor");
+	}	
+</script>
+
+<head>
+	<script type="text/javascript" src="../extras/dataTable/media/js/jquery.dataTables.js"></script>
+	<link href="../extras/dataTable/media/css/jquery.dataTables.css" rel="stylesheet">
+</head>
+
+<h2>Listado de Clientes</h2>
+
+<div id="errores" class="errores">
+	<ul id="listado">
+	</ul>
+</div>
+
+<table id="tabla" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Tel&eacutefono</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Sexo</th>
+            <th>E-Mail</th>
+            <th>Borrar</th>
+            <th>Editar</th>
+            <th>Atender</th>
+           
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Tel&eacutefono</th>
+            <th>Fecha de Nacimiento</th>
+			 <th>Sexo</th>
+            <th>E-Mail</th>
+            <th>Borrar</th>
+            <th>Editar</th>
+            <th>Atender</th>
+           
+        </tr>
+    </tfoot>
+    <tbody>
+		<?php
+			for($i=0; $i<sizeof($clientes); $i++){
+				$cliente = $clientes[$i];
+		?>
+			<tr id="<?php echo $cliente['id_persona']; ?>">
+				<td><?php echo strtoupper($cliente['nombre']); ?></td>
+				<td><?php echo strtoupper($cliente['apellido']); ?></td>
+				<td><?php echo $cliente['telefono']; ?></td>
+				<td><?php echo (date( "d/m/Y" ,strtotime($cliente['fecha_nacimiento']))); ?></td>
+				<td><?php echo $cliente['sexo']; ?></td>
+				<td><?php echo $cliente['email']; ?></td>
+				<td>
+					<form method="post" action="clientes.php" id="frmBorraDetalle">
+						<span class="" aria-hidden="true" onclick="eliminar(<?php echo $cliente['id_persona']; ?>)" >Borrar</span>
+						<input type="hidden" name="opt" id="opt" value="1" />	
+					</form>
+				</td>
+				<td>
+					<form method="post" action="clientes.php" id="frmEdita">
+						<span class="" aria-hidden="true" onclick="editar(<?php echo $cliente['id_persona']; ?>)" >Editar</span>
+						<input type="hidden" name="opt" id="opt" value="3">	
+						
+					</form>
+				</td>
+				<td>
+					<form method="post" action="clientes.php" id="frmAtencion">
+						<!--<span class="" aria-hidden="true" onclick="atender(<?php echo $cliente['id_persona']; ?>)" >Atender</span>-->
+						<input type="hidden" name="opt" id="opt" value="4" />	
+						<input type="hidden" name="id_persona" id="id_persona" value="<?php echo $cliente['id_persona']; ?>" />	
+						<button type="submit" id="bAtender" class="btn btn-success">Atender</button>
+					</form>
+				</td>
+			</tr>
+		<?php
+			}
+		?>
+    </tbody>
+</table>
+
+<div id="botonera" class="botonera">
+	<form method="post" action="clientes.php" id="frmBorraDetalle">
+		<button type="submit" id="bEnviar" class="btn btn-success">Nuevo Cliente</button>
+		<input type="hidden" name="opt" id="opt" value="2" />	
+	</form>
+</div>

@@ -1,0 +1,66 @@
+<script>
+function valida(){
+
+	$("#errores").stop();
+	$("input").css("border-color","#ccc");
+	$("#listado").empty();
+		
+	hayError = false;
+	usuario = $("#usuario").val();
+	
+	if(isNaN(usuario)||(usuario == "")){
+		$("#listado").append($("<li></li>").text("Ingrese correctamente el usuario para continuar"));  
+		hayError = true;
+	}
+					
+	if(hayError){
+		$("#errores").fadeIn("slow");
+		$("#errores").fadeOut(5000);
+		return false;
+	}
+	
+	parametros= new Array();
+	valores= new Array();
+	parametros[0]= 'opt';
+	parametros[1]= 'dni';
+		
+	valores[0]= 1;
+	valores[1]= usuario;
+			
+	result = cargarPaginaDivSinc("../extras/sesion.php", parametros, valores);
+
+	if(result=="deny"){
+		$("#listado").append($("<li></li>").text("No pudo iniciarse la sesion"));    
+		hayError = true;
+	}
+			
+	if(result == "success"){
+		document.getElementById('inicio').submit();
+	}
+	else{
+		//$("#listado").append($("<li></li>").text("Error de base de datos"));    
+		hayError = true;
+	}
+	
+	if(hayError){
+		$("#errores").fadeIn("slow");
+		$("#errores").fadeOut(5000);
+		return false;
+	}
+}
+</script>
+
+<div id="errores" class="errores">
+	<ul id="listado">
+	</ul>
+</div>	
+<section>
+	<div class="loginmodal-container">
+		<h1>Essence</h1>
+		<form method="POST" action="index.php" id="inicio">
+			<input type="text" name="usuario" id="usuario" placeholder="Nombre de Usuario" required>
+			<input type="button" onclick="valida()" name="login" class="login loginmodal-submit" value="Iniciar Sesi&oacute;n">
+			<input type="hidden" name="opt" id="opt" value="1">
+		</form>
+	</div>
+</section>

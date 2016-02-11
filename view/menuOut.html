@@ -1,0 +1,24 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Desplegar navegación</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+	<a class="navbar-brand" href="index.php">Essence</a>
+  </div>
+ 
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    
+     <ul class="nav navbar-nav navbar-right">
+		<li><a href="mailto:jonatansivori@gmail.com" target="_blank">Contacto</a></li>
+		<li>
+			<form action="index.php" method="post" class="invisible" id="close" name="close">
+				<input type="hidden" name="opt" id="opt" value="3"/>
+			</form>
+			<a href="#" onclick="document.getElementById('close').submit()">Iniciar Sesi&oacuten</a>
+		</li>
+    </ul>
+  </div>
+</nav>

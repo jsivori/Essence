@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<title> Essence </title>
+	
+	<script type="text/javascript" src="../resources/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../resources/js/ajax.js"></script>
+	<script type="text/javascript" src="../resources/js/bootstrap.js"></script>
+	
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+	<link href="../resources/css/estilo.css" rel="stylesheet">
+	<link rel="icon" type="image/png/ico" href="../favicon.png" />
+	
+	<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+	<meta name="description" content="Essence Peluqueria">
+	<meta name="keywords" content="Peluqueria, Essence">
+	<meta name="author" content="Jonatan Sivori">
+</head>
+
+<body class="body">
+	<header class="header">
+		<!--<a href="index.php">--><h1>Essence</h1><!--</a>-->
+	</header>
+
+	<?php 
+	if(isset($_SESSION['log']) or (session_id() != '')){
+		include 'menu.html';
+	}
+	else{
+		include 'menuOut.html';
+	}	
+		?>
+	
+	<div id="contenedor" class="contenedor">
+
+		<?php include $pag ?>
+
+	</div>
+
+	<footer class="footer">
+		Essence Peluquer&iacutea - Creado por <a href="mailto:jonatansivori@gmail.com" target="_blank"> Sivori Jonatan </a> - Copyright &reg; 2016  
+	</footer>
+</body>
+
+</html>
+	
+		
+	
+		
+
+
+

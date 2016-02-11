@@ -1,0 +1,213 @@
+<script>
+$(document).ready(function(){
+	$('#tabla2').DataTable();
+});
+
+function verOcultar(){
+	if($("#bVerH").text()=="Ocultar Atenciones"){
+		$("#atenciones").hide('slow');
+		$("#bVerH").text("Mostrar Historial");
+	}
+	else{
+		if($("#bVerH").text()=="Mostrar Historial"){
+			$("#atenciones").show('slow');
+			$("#bVerH").text("Ocultar Atenciones");
+		}
+	}
+}
+
+function atender(idpersona){
+	parametros= new Array();
+	valores= new Array();
+	parametros[0] = "idpersona";
+	valores[0] = idpersona;
+	parametros[1] = "opt";
+	valores[1] = 3;
+
+	cargarPaginaDiv("../extras/atenciones.php", parametros, valores, "nuevaAtencion");
+}
+
+function validaForm(){
+
+	$("#errores").stop();
+	$("input").css("border-color","#ccc");
+	$("textarea").css("border-color","#ccc");
+	$("select").css("border-color","#ccc");
+	$("#listado").empty();
+	
+	observaciones = $("#observaciones").val();
+	operacion = $("#operacion").val();
+	
+	hayError = false;
+
+	if(observaciones == " "){
+		$("#listado").append($("<li></li>").text("Las observaciones son requeridas"));  
+		$("#observaciones").css("border-color", "#C32E2E");			
+		hayError = true;
+	}
+	
+	if(operacion == 0){
+		$("#listado").append($("<li></li>").text("La operacion es requerida"));  
+		$("#operacion").css("border-color", "#C32E2E");			
+		hayError = true;
+	}
+
+	if(hayError){
+		$("#errores").fadeIn("slow");
+		$("#errores").fadeOut(5000);
+		return false;
+	}
+	
+	parametros= new Array();
+	valores= new Array();
+	parametros[0]= 'opt';
+	parametros[1]= 'observaciones';
+	parametros[2]= 'operacion';
+	parametros[3]= 'idpersona';
+		
+	valores[0]= 1;
+	valores[1]= observaciones;
+	valores[2]= operacion;
+	valores[3]= $("#id_persona").val();
+			
+	result = cargarPaginaDivSinc("../extras/atenciones.php", parametros, valores);
+
+	if(result=="errorAlta"){
+		$("#listado").append($("<li></li>").text("No pudo guardarse la descripcion ingresada"));    
+		hayError = true;
+	}
+	
+	if(result == "finCorrecto"){
+		document.getElementById('atencion').submit();
+	}
+	else{
+		//$("#listado").append($("<li></li>").text("Error de base de datos"));    
+		hayError = true;
+	}
+	
+	if(hayError){
+		$("#errores").fadeIn("slow");
+		$("#errores").fadeOut(5000);
+		return false;
+	}
+};
+
+	function eliminar(idop){
+		$("#errores").stop();
+		$("input").css("border-color","#ccc");
+		$("#listado").empty();
+			
+		hayError = false;
+
+		if(isNaN(idop)){
+			$("#listado").append($("<li></li>").text("Error al eliminar el registro"));  
+			hayError = true;
+		}
+						
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+		
+		parametros= new Array();
+		valores= new Array();
+		parametros[0]= 'opt';
+		parametros[1]= 'id';
+			
+		valores[0]= 2;
+		valores[1]= idop;
+				
+		result = cargarPaginaDivSinc("../extras/atenciones.php", parametros, valores);
+
+		if(result=="errorBorrar"){
+			$("#listado").append($("<li></li>").text("No pudo eliminarse el registro"));    
+			hayError = true;
+		}
+				
+		if(result == "finCorrecto"){
+			document.getElementById('frmBorraDetalle').submit();
+		}
+		else{
+			//$("#listado").append($("<li></li>").text("Error de base de datos"));    
+			hayError = true;
+		}
+		
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+		
+		document.getElementById("frmBorraDetalle").submit();
+	};
+</script>
+
+<head>
+	<script type="text/javascript" src="../extras/dataTable/media/js/jquery.dataTables.js"></script>
+	<link href="../extras/dataTable/media/css/jquery.dataTables.css" rel="stylesheet">
+</head>
+
+<form action="clientes.php" method="post" class="" id="atencion" name="atencion">
+	<h2> Atenciones para <?php echo  $busqueda["nombre"].", ".$busqueda["apellido"]; ?></h2>
+	<h3> </h3>
+		
+	<div id="botonera" class="botonera">
+		<button type="button" id="bEnviar" class="btn btn-success" onclick='atender(<?php echo  $busqueda["id_persona"] ?>)'>Nueva Atencion</button>
+		<button type="button" id="bVerH" class="btn btn-primary" onclick='verOcultar()'>Ocultar Atenciones</button>
+		<button type="button" class="btn btn-default" onclick="document.getElementById('volver').submit()">Volver</button>
+	</div>
+	
+	<div class="" id="atenciones"> 
+		<table id="tabla2" class="display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Descripcion</th>
+					<th>Fecha y Hora</th>
+					<th>Observaciones</th>           
+					<th>Borrar</th>           
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>Descripcion</th>
+					<th>Fecha y Hora</th>
+					<th>Observaciones</th> 
+					<th>Borrar</th> 			
+				</tr>
+			</tfoot>
+			<tbody>
+				<?php
+					for($i=0; $i<sizeof($atenciones); $i++){
+						$atencion = $atenciones[$i];
+				?>
+					<tr id="<?php echo $atencion['id_operacion']; ?>">
+						<td><?php echo strtoupper($atencion['descripcion']); ?></td>
+						<td><?php echo (date( "d/m/Y H:m" ,strtotime($atencion['fecha_hora']))); ?></td>
+						<td><?php echo $atencion['observaciones']; ?></td>
+						<td>
+							<span class="" aria-hidden="true" onclick="eliminar(<?php echo $atencion['id_operacion']; ?>)" >Borrar</span>
+						</td>
+					</tr>
+				<?php
+					}
+				?>
+				
+			</tbody>
+		</table>
+	</div>
+	
+	<div id="nuevaAtencion"> 
+	</div>
+	
+	<input type="hidden" name="opt" id="opt" value="4" />	
+	<input type="hidden" name="id_persona" id="id_persona" value="<?php echo  $busqueda["id_persona"] ?>" />		
+</form>
+
+<form action="clientes.php" method="post" class="" id="volver" name="volver">
+	<input type="hidden" name="opt" id="opt" value="1"/>
+</form>
+<form method="post" action="clientes.php" id="frmBorraDetalle" name="frmBorraDetalle">
+	<input type="hidden" name="opt" id="opt" value="4" />	
+	<input type="hidden" name="id_persona" id="id_persona" value="<?php echo  $busqueda["id_persona"] ?>" />
+</form>

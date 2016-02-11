@@ -1,0 +1,182 @@
+<script>
+var exprTel = /\d$/;
+var exprMail = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
+var exprfecha = /^(\d{4})(\/|-)([0][1-9]|[1][0-2])(\/|-)([0][1-9]|[12][0-9]|3[01])$/;
+
+$(document).ready(function(){
+	
+	$("#bEnviar").click(function(){
+		$("#errores").stop();
+		$("input").css("border-color","#ccc");
+		$("#listado").empty();
+		
+		nombre = $("#nombre").val();
+		apellido = $("#apellido").val();
+		correo = $("#email").val();
+		tel = $("#tel").val();
+		fecha = $("#fecha").val();
+		hayError = false;
+
+		if(nombre == ""){
+			$("#listado").append($("<li></li>").text("El nombre es requerido"));  
+			$("#nombre").css("border-color", "#C32E2E");			
+			hayError = true;
+		}
+		
+		if(apellido == ""){
+			$("#listado").append($("<li></li>").text("El apellido es requerido"));    
+			$("#apellido").css("border-color", "#C32E2E");
+			hayError = true;
+		}
+		
+		if(tel == "" || !exprTel.test(tel)){
+			if(tel == "")
+				txt = "El Telefono es requerido";
+			if(!exprTel.test(tel))
+				txt = "El Telefono es invalido. Ingrese los digitos sin puntos ni espacios";
+			
+			$("#listado").append($("<li></li>").text(txt));   
+			$("#tel").css("border-color", "#C32E2E");			
+			hayError = true;
+		}
+		
+		if(fecha == "" || !exprfecha.test(fecha)){
+			if(fecha == "")
+				txt = "La Fecha de Nacimiento es requerida";
+			if(!exprfecha.test(fecha))
+				txt = "La Fecha de Nacimiento es invalida. Ingrese con formato dd/mm/aaaa";
+			
+			$("#listado").append($("<li></li>").text(txt));   
+			$("#fecha").css("border-color", "#C32E2E");			
+			hayError = true;
+		}
+		
+		if(correo == "" || !exprMail.test(correo)){
+			if(correo == "")
+				txt = "El E-Mail es requerido";
+			if(!exprMail.test(correo))
+				txt = "Ingrese un E-Mail valido";
+			
+			$("#listado").append($("<li></li>").text(txt));    
+			$("#email").css("border-color", "#C32E2E");
+			hayError = true;
+		}
+				
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+		
+		parametros= new Array();
+		valores= new Array();
+		parametros[0]= 'email';
+		parametros[1]= 'nombre';
+		parametros[2]= 'apellido';
+		parametros[3]= 'telefono';
+		parametros[5]= 'sexo';
+		parametros[4]= 'fecha_nacimiento';
+		parametros[6]= 'opt';
+		
+		valores[0]= correo;
+		valores[1]= nombre;
+		valores[2]= apellido;
+		valores[3]= tel;
+		valores[4]= fecha;
+		valores[6]= 1;
+	
+		radios= document.getElementById("sexoRadio").getElementsByTagName('input');
+		for(i=0 ; i<radios.length; i++)
+			if(radios[i].checked==true)
+				sexo = radios[i].value;
+		
+		valores[5]= sexo;
+		
+		result = cargarPaginaDivSinc("../extras/clientes.php", parametros, valores);
+
+		if(result=="errorAlta"){
+			$("#listado").append($("<li></li>").text("Error al guardar los datos personales"));    
+			hayError = true;
+		}
+		
+		if(result=="duplicado"){
+			$("#listado").append($("<li></li>").text("El Cliente ya existe"));    
+			hayError = true;
+		}
+
+		if(result == "finCorrecto"){
+			return true;
+		}
+		else{
+			hayError = true;
+		}
+		
+		if(hayError){
+			$("#errores").fadeIn("slow");
+			$("#errores").fadeOut(5000);
+			return false;
+		}
+	});
+});
+
+</script>
+
+<form action="clientes.php" method="post" class="" id="frmCliente" name="frmCliente">
+	<h2> Nuevo Cliente</h2>
+	<h4> Ingrese los datos de la persona a registrar</h4>
+		
+	<div id="errores" class="errores">
+		<ul id="listado">
+		</ul>
+	</div>		
+	<div class="form-group">
+		<label for="nombre">Nombre</label>
+		<input type="text" class="form-control" name="nombre" id="nombre" placeholder="Introduce un nombre" required>
+	</div>
+	
+	<div class="form-group">
+		<label for="apellido">Apellido</label>
+		<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Introduce un apellido" required>
+	</div>
+	
+	<div class="form-group">
+		<label for="fecha">Fecha de Nacimiento</label>
+		<input type="date" class="form-control" name="fecha" id="fecha" placeholder="Introduce un nombre" required>
+	</div>
+	
+	<div class="form-group">
+		<label for="tel">Tel&eacutefono</label>
+		<input type="number" class="form-control" id="tel" name="tel" placeholder="Introduce un telefono" required>
+	</div>
+	
+	<div class="form-group" id="sexoRadio">
+		<label for="sexo">Sexo</label>
+		<div class="radio">
+			<label>
+				<input type="radio" name="sexo" id="sexo" value="Masculino" checked >Masculino
+			</label>		
+		</div>
+		<div class="radio">
+			<label>
+				<input type="radio" name="sexo" id="sexo" value="Femenino">Femenino
+			</label>		
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label for="email">E-Mail</label>
+		<input type="email" class="form-control" id="email" name="email" onKeyUp="verificarTipeoMail()" placeholder="Introduce tu E-Mail" required>
+	</div>
+	
+	<input type="hidden" name="opt" id="opt" value="1">	
+
+	<div id="botonera" class="botonera">
+		<button type="submit" id="bEnviar" class="btn btn-success">Siguiente</button>
+		<button type="button" onclick="document.getElementById('volver').submit()" class="btn btn-primary">Cancelar</button>
+	</div>
+</form>
+
+<form action="clientes.php" method="post" class="" id="volver" name="volver">
+	<input type="hidden" name="opt" id="opt" value="1"/>
+</form>
+

@@ -1,0 +1,58 @@
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Desplegar navegación</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+	<a class="navbar-brand" href="index.php">Essence</a>
+  </div>
+ 
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Clientes <b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<form action="clientes.php" method="post" class="invisible" id="inicio" name="inicio">
+						<input type="hidden" name="opt" id="opt" value="1"/>
+					</form>
+					<a href="#" onclick="document.getElementById('inicio').submit()">Listado de Clientes</a>
+				</li>
+				<li>
+					<form action="clientes.php" method="post" class="invisible" id="alta" name="alta">
+						<input type="hidden" name="opt" id="opt" value="2"/>
+					</form>
+					<a href="#" onclick="document.getElementById('alta').submit()">Nuevo Cliente</a>
+				</li>
+			</ul>
+		</li>
+		
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Administrar <b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<form action="acciones.php" method="post" class="invisible" id="operaciones" name="operaciones">
+						<input type="hidden" name="opt" id="opt" value="1"/>
+					</form>
+					<a href="#" onclick="document.getElementById('operaciones').submit()">Operaciones</a>
+				</li>
+			</ul>
+		</li>
+           
+    </ul>
+ 
+    <ul class="nav navbar-nav navbar-right">
+		<li><a href="mailto:jonatansivori@gmail.com" target="_blank">Contacto</a></li>
+		<li>
+			<form action="index.php" method="post" class="invisible" id="close" name="close">
+				<input type="hidden" name="opt" id="opt" value="2"/>
+			</form>
+			<a href="#" onclick="document.getElementById('close').submit()">Cerrar Sesi&oacuten</a>
+		</li>
+    </ul>
+  </div>
+</nav>
