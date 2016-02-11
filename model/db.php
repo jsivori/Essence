@@ -18,10 +18,6 @@ APP NAME > essence
 Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
 */
 function conectar(){
-	$dbname='essence';
-	$dbhost='localhost';
-    $dbuser='root';
-    $dbpass='';
 	
 	/*openshift*/
 	$dbhost=getenv('OPENSHIFT_MYSQL_DB_HOST');
@@ -32,6 +28,17 @@ function conectar(){
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	}catch(PDOException $e){
+		$dbhost='localhost';
+		$dbuser='root';
+		$dbpass='';
+		try{
+			$conn = new PDO(sprintf('mysql:host=%s;dbname=%s', $dbhost, $dbname), $dbuser, $dbpass);
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		}
+		catch(PDOException $e){
+			//echo "ERROR: " . $e->getMessage();
+			return false;
+		}
 		//echo "ERROR: " . $e->getMessage();
 		return false;
 	}
