@@ -29,11 +29,12 @@ function conectar(){
     $dbpass='18vyBUDUvt-j';
 	try{
 		$conn = new PDO(sprintf('mysql:host=%s;dbname=%s', $dbhost, $dbname), $dbuser, $dbpass);
-		//$conn = new PDO(sprintf('mysql:host=%s;dbname=%s', $dbhost, $dbname), $dbuser, $dbpass);
+		
+		$conn = new PDO('mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/', $dbuser, $dbpass);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	}catch(PDOException $e){
-		echo "ERROR: " . $e->getMessage();
+		//echo "ERROR: " . $e->getMessage();
 		return false;
 	}
 
