@@ -23,10 +23,10 @@ function conectar(){
     $dbuser='root';
     $dbpass='';
 	
-	/*openshift*//*
+	/*openshift*/
 	$dbhost='essence-jsivori.rhcloud.com';
 	$dbuser='adminjy8YLxm';
-    $dbpass='18vyBUDUvt-j';*/
+    $dbpass='18vyBUDUvt-j';
 	try{
 		$conn = new PDO(sprintf('mysql:host=%s;dbname=%s', $dbhost, $dbname), $dbuser, $dbpass);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
