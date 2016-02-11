@@ -34,7 +34,7 @@ function conectar(){
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	}catch(PDOException $e){
-		//echo "ERROR: " . $e->getMessage();
+		echo "ERROR: " . $e->getMessage();
 		return false;
 	}
 
