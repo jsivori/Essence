@@ -20,6 +20,7 @@ Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
 function conectar(){
 	
 	/*openshift*/
+	$dbname='essence';
 	$dbhost=getenv('OPENSHIFT_MYSQL_DB_HOST');
 	$dbuser='adminjy8YLxm';
     $dbpass='18vyBUDUvt-j';
