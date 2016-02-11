@@ -1,8 +1,6 @@
 <?php
 /*error_reporting(E_ALL); 
 ini_set("display_errors", 1); 
-
-9rHdnG5F~!R&&+&yf8
 */
 session_start();
 
@@ -14,7 +12,7 @@ if((!isset($_POST['opt'])) or (!is_numeric($_POST['opt']))){
 
 }
 
-if(!isset($_SESSION) or (session_id() == '')){
+if(!isset($_SESSION['log']) or (session_id() == '')){
 	$_POST['opt'] = 0;
 }
 
