@@ -15,14 +15,13 @@ Root User: adminjy8YLxm
 HOST > essence-jsivori.rhcloud.com
 PORT > 3306
 APP NAME > essence
-
 Connection URL: mysql://$OPENSHIFT_MYSQL_DB_HOST:$OPENSHIFT_MYSQL_DB_PORT/
 */
 function conectar(){
 	$dbname='essence';
-	$dbhost='essence-jsivori.rhcloud.com:3306';
-    $dbuser='adminjy8YLxm';
-    $dbpass='18vyBUDUvt-j';
+	$dbhost='localhost';
+    $dbuser='root';
+    $dbpass='';
 	
 	try{
 		$conn = new PDO(sprintf('mysql:host=%s;dbname=%s', $dbhost, $dbname), $dbuser, $dbpass);

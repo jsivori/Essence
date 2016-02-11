@@ -12,7 +12,7 @@ if((!isset($_POST['opt'])) or (!is_numeric($_POST['opt']))){
 
 }
 
-if(!isset($_SESSION['log']) or (session_id() == '')){
+if(!isset($_SESSION) or (session_id() == '')){
 	$_POST['opt'] = 0;
 }
 
@@ -30,13 +30,13 @@ switch ($_POST['opt']){
 		break;
 		
 	case 2:
-		if(isset($_SESSION) or (session_id() != ''))
-			session_destroy();
+		$_SESSION['log'] = false;
+		session_destroy();
 		$pag = '../view/index.html';
 		break;
 		
 	default:
-		if(isset($_SESSION) or (session_id() != ''))
+		if(isset($_SESSION['log']) or (session_id() != ''))
 			session_destroy();
 		$pag = '../view/index.html';
 }

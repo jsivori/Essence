@@ -50,18 +50,18 @@ function valida(){
 }
 </script>
 
-<div id="errores" class="errores">
+
+<div id="errores" class="erroresLogin">
 	<ul id="listado">
 	</ul>
-</div>	
-
-<section>
-	<div class="loginmodal-container">
-		<h1>Essence</h1>
-		<form method="POST" action="index.php" id="inicio">
-			<input type="text" name="usuario" id="usuario" placeholder="Nombre de Usuario" required>
-			<input type="button" onclick="valida()" name="login" class="login loginmodal-submit" value="Iniciar Sesi&oacute;n">
-			<input type="hidden" name="opt" id="opt" value="1">
-		</form>
-	</div>
-</section>
+</div>
+<div class="loginmodal-container">
+	<h2>Essence</h2>
+	
+	<form method="POST" action="index.php" id="inicio">
+		<label for="usuario">DNI</label>
+		<input type="text" name="usuario" id="usuario" placeholder="DNI" required>
+		<input type="button" onclick="valida()" name="login" class="login loginmodal-submit" value="Iniciar Sesi&oacute;n">
+		<input type="hidden" name="opt" id="opt" value="1">
+	</form>
+</div>
