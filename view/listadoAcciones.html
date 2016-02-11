@@ -114,6 +114,18 @@ $(document).ready(function(){
 			return false;
 		}
 	};
+	
+	function eliminarForm(idDetalle){		
+		parametros= new Array();
+		valores= new Array();
+		parametros[0]= 'opt';
+		parametros[1]= 'id';
+			
+		valores[0]= 7;
+		valores[1]= idDetalle;
+				
+		result = cargarPaginaDiv("../extras/borrado.php", parametros, valores, "frmAlta");
+	};
 
 </script>
 
@@ -140,7 +152,7 @@ $(document).ready(function(){
 				<td><?php echo strtoupper($accion['descripcion']); ?></td>
 				<td style="text-align:center">
 					<form method="post" action="acciones.php" id="frmBorraDetalle">
-						<span class="glyphicon glyphicon-trash" style="cursor:pointer" aria-hidden="true" onclick="eliminar(<?php echo $accion['id_detalle_operacion']; ?>)">&nbsp; </span>
+						<span class="glyphicon glyphicon-trash" style="cursor:pointer" aria-hidden="true" onclick="eliminarForm(<?php echo $accion['id_detalle_operacion']; ?>)">&nbsp; </span>
 						<input type="hidden" name="opt" id="opt" value="1">	
 					</form>
 				</td>

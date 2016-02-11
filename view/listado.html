@@ -62,7 +62,19 @@ $(document).ready(function(){
 		valores[2] = 1;
 
 		cargarPaginaDiv("../controller/clientes.php", parametros, valores, "contenedor");
-	}	
+	}
+
+	function eliminarForm(idDetalle){		
+		parametros= new Array();
+		valores= new Array();
+		parametros[0]= 'opt';
+		parametros[1]= 'id';
+			
+		valores[0]= 7;
+		valores[1]= idDetalle;
+				
+		result = cargarPaginaDiv("../extras/borrado.php", parametros, valores, "frmAlta");
+	};	
 </script>
 
 <head>
@@ -120,7 +132,7 @@ $(document).ready(function(){
 				<td><?php echo $cliente['email']; ?></td>
 				<td style="text-align:center">
 					<form method="post" action="clientes.php" id="frmBorraDetalle">
-						<span class="glyphicon glyphicon-trash" style="cursor:pointer" aria-hidden="true" onclick="eliminar(<?php echo $cliente['id_persona']; ?>)" >&nbsp;</span>
+						<span class="glyphicon glyphicon-trash" style="cursor:pointer" aria-hidden="true" onclick="eliminarForm(<?php echo $cliente['id_persona']; ?>)" >&nbsp;</span>
 						<input type="hidden" name="opt" id="opt" value="1" />	
 					</form>
 				</td>
@@ -145,6 +157,10 @@ $(document).ready(function(){
 		?>
     </tbody>
 </table>
+
+<div id="frmAlta" class="col-md-12" style="margin:10px">
+
+</div>
 
 <form method="post" action="clientes.php" id="frmBorraDetalle">
 	<button type="submit" id="bEnviar" class="btn btn-primary btn-lg pull-right">Nuevo Cliente</button>

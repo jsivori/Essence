@@ -28,7 +28,7 @@ if(isset($_POST['opt'])){
 				$result = "errorBorrar";
 			}			
 			break;
-       
+			
 	   default:
 			break;
 	}

@@ -1,0 +1,10 @@
+<form method="post" action="#" id="frmBorrar">
+	<h3> Eliminacion de registro</h3>
+	<h2> Esta seguro de eliminar el registro??</h2>
+
+	<input type="hidden" name="opt" id="opt" value="1">	
+
+	<button type="button" id="bEnviar2" class="btn btn-primary pull-right" onclick="eliminar(<?php echo $_POST['id'] ?>)">Borrar</button>
+	<button type="button" id="cancelar" class="btn btn-primary pull-left" onclick="$('#frmAlta').empty();">Cancelar</button>
+
+</form>
