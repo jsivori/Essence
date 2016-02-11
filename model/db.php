@@ -24,7 +24,7 @@ function conectar(){
     $dbpass='';
 	
 	/*openshift*/
-	$dbhost='essence-jsivori.rhcloud.com'
+	$dbhost='essence-jsivori.rhcloud.com';
 	$dbuser='adminjy8YLxm';
     $dbpass='18vyBUDUvt-j';
 	try{
